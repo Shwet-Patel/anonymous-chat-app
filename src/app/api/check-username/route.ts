@@ -24,7 +24,7 @@ export async function GET(request:Request) {
             return Response.json({
                 success: false,
                 message: 'This username is already taken. try something else'
-            },{status:200})
+            },{status:400})
         }
         
         return Response.json({

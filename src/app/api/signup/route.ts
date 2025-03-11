@@ -10,20 +10,18 @@ import { signupSchema } from "@/validationSchemas/signupSchema";
 export async function POST(request: Request) {
     await dbConnection();
 
-    const { username, email, password } : {username:string, email:string , password:string} = await request.json();
+    const { username, email, Password } : {username:string, email:string , Password:string} = await request.json();
     const verifyCode = (100000 + Math.floor(Math.random()*900000)).toString();
 
-    const decodedpassword = decodeURIComponent(password);
     try {
-        
+        // there was an issue in validation schema before.................
+
         //check for already existing username 
         const existingUserByUsername: (user | null) = await UserModel.findOne({username:username,isVerified:true});
         if (existingUserByUsername) {
             console.log('this username is taken try something else');
             return Response.json({ success: false, message: 'this username is taken try something else' }, { status: 400 });
         }
-
-        
 
         const existingUserByEmail: (user | null) = await UserModel.findOne({ email });
         if (existingUserByEmail) {
@@ -33,7 +31,7 @@ export async function POST(request: Request) {
             }
             else
             {
-                const hashedPassword = await bcrypt.hash(decodedpassword, 10);
+                const hashedPassword = await bcrypt.hash(Password, 10);
                 existingUserByEmail.password = hashedPassword;
                 existingUserByEmail.verifyCode = verifyCode;
                 existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
@@ -43,7 +41,7 @@ export async function POST(request: Request) {
         else
         {
             //register fresh user
-            const hashedPassword = await bcrypt.hash(decodedpassword, 10);
+            const hashedPassword = await bcrypt.hash(Password, 10);
             
             const passwordExpiry = new Date();
             passwordExpiry.setHours(passwordExpiry.getHours() + 1);

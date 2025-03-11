@@ -1,5 +1,4 @@
-import { GoogleGenerativeAI , SchemaType } from '@google/generative-ai';
-import { json } from 'node:stream/consumers';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function GET(request: Request) {
     
@@ -21,7 +20,6 @@ export async function GET(request: Request) {
         }
 
         const messages = result.response.candidates[0].content.parts[0].text;
-
         return Response.json({
             success: true,
             message: 'message suggestions generated successfully',

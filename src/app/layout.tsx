@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AuthProvider from "./context/AuthProvider";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "True Feedback",
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={`antialiased`}>{children}</body>
+        <body className={`antialiased`}>
+          {children}
+          <Toaster position="top-center" />
+        </body>
       </AuthProvider>
     </html>
   );

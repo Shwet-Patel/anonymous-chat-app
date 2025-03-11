@@ -8,12 +8,11 @@ declare module "next-auth" {
     _id?: string,
     isVerified?: boolean,
     acceptingMessages?: boolean,
-    username?:string,
-          
+    username?:string,  
   }
 
   interface Session {
-    User: {
+    user: {
       _id ?: string,
       isVerified ?: boolean,
       acceptingMessages ?: boolean,
