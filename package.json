@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@google/generative-ai": "^0.22.0",
     "@react-email/components": "^0.0.33",
+    "@react-email/render": "^1.0.5",
     "axios": "^1.8.1",
     "bcryptjs": "^3.0.2",
     "formik": "^2.4.6",
@@ -19,6 +20,7 @@
     "mongoose": "^8.10.1",
     "next": "15.1.7",
     "next-auth": "^4.24.11",
+    "nodemailer": "^6.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-email": "^3.0.7",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
