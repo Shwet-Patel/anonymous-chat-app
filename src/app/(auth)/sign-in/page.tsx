@@ -38,7 +38,7 @@ const page = () => {
   return (
     <div className="flex min-h-screen justify-center ">
       <img
-        className=" object-cover fixed z-[-1] object-center"
+        className="fixed z-[-1] w-screen h-screen min-w-full min-h-full object-cover"
         src="https://images.unsplash.com/photo-1683059624536-c21b82316aec?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       />
 

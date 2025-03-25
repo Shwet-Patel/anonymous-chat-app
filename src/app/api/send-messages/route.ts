@@ -26,10 +26,11 @@ export async function POST(request:Request) {
         }
 
         user.messages.push({ content: content } as message);
+        user.save();
 
         return Response.json({
             success: true,
-            message: 'message sent successfully.'
+            message: 'message sent successfully...'
         });
 
     } catch (error) {

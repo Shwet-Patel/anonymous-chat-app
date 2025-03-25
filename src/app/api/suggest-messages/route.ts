@@ -23,7 +23,7 @@ export async function GET(request: Request) {
         return Response.json({
             success: true,
             message: 'message suggestions generated successfully',
-            messages
+            messageSuggestions : messages,
         },{status:200});
 
     } catch (error) {

@@ -9,7 +9,7 @@ export async function GET(request:Request) {
     await dbConnection();
 
     const session = await getServerSession(authOptions);
-    const user = session?.User;
+    const user = session?.user;
 
     if (!session || !user)
     {
@@ -19,28 +19,33 @@ export async function GET(request:Request) {
         },{status:401});
     }
 
-    const userId = new mongoose.Types.ObjectId(user._id);
 
+    const userId = new mongoose.Types.ObjectId(user._id);
+    // console.log("this is it", user._id);
+    
     try {
         const queryUser = await UserModel.aggregate([
-            { $match : {_id : userId}},
-            { $unwind : '$messages'},
-            { $sort : {'$messages.createdAt':-1}},
-            { $group : { _id:'$_id' , messages : {$push:'$messages'} }}
+              { $match : {_id : userId}},
+              { $unwind : '$messages'},
+              { $sort : {'messages.createdAt':-1}},
+              { $group : { _id:'$_id' , messages : {$push:'$messages'} }}
         ]);
+
+        // console.log('works till here...', queryUser);
 
         if (!queryUser || queryUser.length === 0)
         {
             return Response.json({
                 success: false,
-                message: 'user not found',
-            }, { status: 400 });
+                message: 'Your Message box is empty.',
+                messages: [],
+            }, { status: 201 });
         }
 
         return Response.json({
             success: true,
             message: 'messages fetched succesfully.',
-            result: queryUser[0].messages,
+            messages: queryUser[0].messages,
 
         }, { status: 201 });
         
