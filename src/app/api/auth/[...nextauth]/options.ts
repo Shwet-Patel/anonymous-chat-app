@@ -3,7 +3,13 @@ import dbConnection from "@/utils/dbConnect";
 import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { User } from "next-auth";
 
+
+type credentialsType = {
+    identifier: string,
+    password: string,
+};
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -13,14 +19,14 @@ export const authOptions: NextAuthOptions = {
                 identifier: { label: "Username/email", type: "text"},
                 password: {label: "password" , type: "password"}
             },
-            async authorize(credentials:any):Promise<any> {
+            async authorize(credentials):Promise<User | null> {
                 await dbConnection();
 
                 try {
                     const user = await UserModel.findOne({
                         $or: [
-                          { email: credentials.identifier },
-                          { username: credentials.identifier },
+                          { email: credentials?.identifier },
+                          { username: credentials?.identifier },
                         ],
                       });
                     
@@ -34,16 +40,17 @@ export const authOptions: NextAuthOptions = {
                         throw new Error('user is not verfied. please verify user before login');
                     }
 
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    const EnteredPassword = credentials?.password || '';
+                    const isPasswordCorrect = await bcrypt.compare(EnteredPassword, user.password);
                     if (!isPasswordCorrect) {
                         throw new Error('wrong password. please remember your passwords well');
                     }
                     
                     return user;
 
-                } catch (error: any) {
+                } catch (error) {
                     // console.log('i kneew it.', error);
-                    throw new Error(error);
+                    throw new Error(error as string);
                 }
             },
         })

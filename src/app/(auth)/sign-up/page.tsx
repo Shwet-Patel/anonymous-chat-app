@@ -11,12 +11,12 @@ import { useRouter } from "next/navigation";
 import { AsyncResponse } from "@/types/AsyncResponse";
 
 const Page = () => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingMessage, setIsCheckingMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [debouncedValue, setValue] = useDebounceValue(username, 500);
+  const [debouncedValue, setValue] = useDebounceValue("", 500);
   const router = useRouter();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Page = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         setTimeout(() => {
-          router.replace(`/verify/${username}`);
+          router.replace(`/verify/${debouncedValue}`);
         }, 1000);
         setIsSubmitting(false);
       } else {
@@ -120,7 +120,7 @@ const Page = () => {
                     placeholder="John123"
                     className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.username && !isCheckingMessage && usernameMessage !== "This username is available" ? "border-red-500" : "border-black focus:border-sky-600"} focus:outline-none`}
                     onChange={(e) => {
-                      setUsername(e.target.value);
+                      setValue(e.target.value);
                       handleChange(e);
                     }}
                     value={values.username}

@@ -29,7 +29,7 @@ const Page = () => {
         toast.success("copied to clipboard");
       })
       .catch((error) => {
-        toast.error(`can't copy to clipboard`);
+        toast.error(`can't copy to clipboard, url: ` + `${copiedText}`, error);
       });
   };
 
