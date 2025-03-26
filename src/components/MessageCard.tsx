@@ -19,9 +19,9 @@ const MessageCard = ({ message, onMessageDelete }: messageProps) => {
     handleDelete: (messageId: unknown) => void
   ) => {
     try {
-      const response = await axios.delete<AsyncResponse>(
-        `/api/delete-message/${message._id}`
-      );
+      const response = await axios.post("/api/delete-message", {
+        messageid: message._id,
+      });
 
       if (response.data.success == true) {
         toast.success("message deleted successfully.");
