@@ -6,11 +6,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from "next-auth";
 
 
-type credentialsType = {
-    identifier: string,
-    password: string,
-};
-
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
