@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { AsyncResponse } from "@/types/AsyncResponse";
 
-const page = () => {
+const Page = () => {
   const username = useParams().username;
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -114,4 +114,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

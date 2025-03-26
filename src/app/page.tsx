@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <div className="fixed top-0 left-0 z-10 w-full">
@@ -101,4 +101,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

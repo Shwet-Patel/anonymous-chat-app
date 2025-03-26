@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import Footer from "@/components/Footer";
 
-const page = () => {
+const Page = () => {
   const username = useParams().username;
   const [isAcceptingMessages, setIsAcceptingMessages] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -241,4 +241,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -27,7 +27,7 @@ export async function GET(request: Request) {
         },{status:200});
 
     } catch (error) {
-        console.log('error getting suggestions');
+        console.log('error getting suggestions',error);
         return Response.json({
             success: false,
             message: 'error getting suggestions'

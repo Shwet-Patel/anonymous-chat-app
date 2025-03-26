@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 import { message } from "@/types/user.types";
 import { acceptMessageSchema } from "@/validationSchemas/acceptMessagesSchema";
 
-const page = () => {
+const Page = () => {
   const [url, setUrl] = useState("");
   const [messages, setMessages] = useState<message[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -140,7 +140,7 @@ const page = () => {
   );
 
   //handle delete message for UI
-  const handleMessageDelete = (messageId: string) => {
+  const handleMessageDelete = (messageId: unknown) => {
     setMessages(messages.filter((msg) => msg._id != messageId));
   };
 
@@ -258,4 +258,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

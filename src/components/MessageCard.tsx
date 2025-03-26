@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 type messageProps = {
   message: message;
-  onMessageDelete: (messageId: string) => void;
+  onMessageDelete: (messageId: unknown) => void;
 };
 
 const MessageCard = ({ message, onMessageDelete }: messageProps) => {
@@ -16,7 +16,7 @@ const MessageCard = ({ message, onMessageDelete }: messageProps) => {
 
   const handleMessageDelete = async (
     message: message,
-    handleDelete: (messageId: any) => void
+    handleDelete: (messageId: unknown) => void
   ) => {
     try {
       const response = await axios.delete<AsyncResponse>(

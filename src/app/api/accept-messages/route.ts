@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         }, { status: 201 });
         
     } catch (error) {
-        console.log('error in updating accepting messages status')
+        console.log('error in updating accepting messages status',error)
         return Response.json({
             success: false,
             message: 'error in updating accepting messages status'

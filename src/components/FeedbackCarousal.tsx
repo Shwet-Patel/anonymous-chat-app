@@ -32,7 +32,7 @@ const FeedbackCarousel = () => {
             transition={{ duration: 0.5 }}
             className="text-lg text-gray-800 text-center"
           >
-            <div className="my-4">"{exampleFeedbacks[index]}"</div>
+            <div className="my-4">&quot;{exampleFeedbacks[index]}&quot;</div>
             <div className="flex justify-center text-black font-semibold">
               -Anonymous User
             </div>

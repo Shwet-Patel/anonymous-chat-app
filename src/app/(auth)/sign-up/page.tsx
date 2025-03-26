@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AsyncResponse } from "@/types/AsyncResponse";
 
-const page = () => {
+const Page = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingMessage, setIsCheckingMessage] = useState(false);
@@ -198,4 +198,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
