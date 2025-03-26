@@ -11,7 +11,7 @@ const Footer = () => {
           Your privacy, your thoughts, your space.
         </p>
 
-        <div className="flex gap-6 mt-4">
+        <div className="flex flex-col md:flex-row gap-x-6 gap-y-3 mt-4">
           <a href="#" className="hover:text-sky-400 transition">
             Privacy Policy
           </a>

@@ -21,8 +21,8 @@ const FeedbackCarousel = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-xl mx-auto mt-12">
-      <div className="overflow-hidden rounded-lg bg-white p-6 shadow-lg">
+    <div className="relative max-w-xl mx-4 md:mx-auto mt-12">
+      <div className="overflow-hidden rounded-lg bg-white p-4 md:p-6 shadow-lg">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}

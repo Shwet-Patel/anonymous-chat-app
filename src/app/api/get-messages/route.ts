@@ -2,10 +2,9 @@ import { getServerSession } from "next-auth";
 import dbConnection from "@/utils/dbConnect";
 import { authOptions } from "../auth/[...nextauth]/options";
 import UserModel from "@/models/User.model";
-import { user } from "@/types/user.types";
 import mongoose from "mongoose";
 
-export async function GET(request:Request) {
+export async function GET() {
     await dbConnection();
 
     const session = await getServerSession(authOptions);
@@ -50,7 +49,7 @@ export async function GET(request:Request) {
         }, { status: 201 });
         
     } catch (error) {
-        console.log('error in getting messages')
+        console.log(error)
         return Response.json({
             success: false,
             message: 'error in getting messages'

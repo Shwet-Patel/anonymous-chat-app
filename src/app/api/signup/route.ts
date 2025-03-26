@@ -5,7 +5,6 @@ import { sendVerificationEmail } from "@/utils/sendVerificationEmail";
 import bcrypt from "bcryptjs";
 import { user } from "@/types/user.types";
 import dbConnection from "@/utils/dbConnect";
-import { signupSchema } from "@/validationSchemas/signupSchema";
 
 export async function POST(request: Request) {
     await dbConnection();
