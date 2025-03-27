@@ -10,7 +10,7 @@ const Page = () => {
         <Navbar />
       </div>
 
-      <div className=" mt-16 md:mt-0 container mx-auto">
+      <div className=" mt-16 md:mt-0 container mx-auto px-6">
         <div className="min-h-screen flex flex-col items-center justify-center md:flex-row md:justify-between gap-x-16">
           <div className="text-center">
             <h1 className="md:text-6xl text-3xl font-bold text-gray-800">
@@ -37,14 +37,14 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="py-32 bg-zinc-100">
+      <div className="py-32 bg-zinc-100 px-6">
         <h1 className=" text-2xl md:text-4xl font-bold text-center">
           Honest Feedbacks are always Anonymous
         </h1>
         <FeedbackCarousel />
       </div>
 
-      <div className="my-32">
+      <div className="my-32 px-6">
         <h2 className="text-3xl text-center font-semibold my-8">
           What Features do We Offer ?
         </h2>
@@ -83,7 +83,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="text-center py-16">
+      <div className="text-center py-16 px-6">
         <h2 className=" text-2xl md:text-4xl font-bold">
           Ready to Get Honest Feedback?
         </h2>

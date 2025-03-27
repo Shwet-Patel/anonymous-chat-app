@@ -2,7 +2,7 @@ import React from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 const Footer = () => {
   return (
-    <footer className="mt-16 bg-gray-900 text-white py-6 text-center">
+    <footer className="mt-16 px-6 bg-gray-900 text-white py-6 text-center">
       <div className="container mx-auto flex flex-col items-center">
         <p className="text-lg font-semibold">
           Made with ❤️ for anonymous conversations
