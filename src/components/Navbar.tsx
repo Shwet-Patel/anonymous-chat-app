@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-sky-950 relative text-white py-6 shadow-md">
-      <div className="container mx-auto flex justify-around md:justify-between items-center">
+      <div className="container mx-auto px-6 flex justify-around md:justify-between items-center">
         <div className="text-xl md:text-3xl font-bold">True Feedback</div>
 
         {/* Desktop Menu */}

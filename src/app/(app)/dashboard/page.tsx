@@ -163,12 +163,12 @@ const Page = () => {
 
   return (
     <>
-      <div className=" container my-8 mx-auto">
+      <div className=" container my-8 mx-auto px-6">
         <h1 className=" font-bold text-3xl">User Dashboard</h1>
 
         <div className="my-8">
           <div className="font-semibold text-xl">Your Unique Link</div>
-          <div className="my-4 flex justify-between bg-gray-50 text-xl">
+          <div className="my-4 flex flex-col md:flex-row gap-6 justify-between bg-gray-50 text-xl">
             <div
               className={`mx-4 flex min-h-full items-center ${isLoading ? "animate-pulse" : ""}`}
             >
@@ -222,7 +222,7 @@ const Page = () => {
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-3 gap-4 my-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
               {Array.from({ length: 6 }).map((_, index) => (
                 <div
                   key={index}
@@ -232,7 +232,7 @@ const Page = () => {
             </div>
           ) : messages.length > 0 ? (
             // Show messages once loaded
-            <div className="grid grid-cols-3 gap-4 my-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
               {messages.map((msg, index) => (
                 <MessageCard
                   key={index}

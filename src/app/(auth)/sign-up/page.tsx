@@ -81,14 +81,14 @@ const Page = () => {
 
       <div className=" my-16">
         <div className="my-8 text-center">
-          <h1 className=" text-6xl font-bold text-gray-50 font-[Playfair Display] tracking-wide">
+          <h1 className=" text-4xl md:text-6xl font-bold text-gray-50 font-[Playfair Display] tracking-wide">
             True Feedback
           </h1>
-          <h3 className="text-2xl text-gray-100 font-[Montserrat] my-4">
+          <h3 className=" text-lg md:text-2xl text-gray-100 font-[Montserrat] my-4">
             start your Anonymous Journey now...
           </h3>
         </div>
-        <div className="max-w-fit place-self-center p-6 rounded-lg shadow-md bg-slate-100 font-[Montserrat]">
+        <div className="min-w-full place-self-center p-6 rounded-lg shadow-md bg-slate-100 font-[Montserrat]">
           <h3 className="text-center text-xl font-semibold">SIGN UP</h3>
           <Formik
             initialValues={{
@@ -118,7 +118,7 @@ const Page = () => {
                     type="text"
                     name="username"
                     placeholder="John123"
-                    className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.username && !isCheckingMessage && usernameMessage !== "This username is available" ? "border-red-500" : "border-black focus:border-sky-600"} focus:outline-none`}
+                    className={`w-full my-2 py-2 px-4 border-b-2 ${touched.username && !isCheckingMessage && usernameMessage !== "This username is available" ? "border-red-500" : "border-black focus:border-sky-600"} focus:outline-none`}
                     onChange={(e) => {
                       setValue(e.target.value);
                       handleChange(e);
@@ -138,7 +138,7 @@ const Page = () => {
                     type="text"
                     name="email"
                     placeholder="john123@mail.com"
-                    className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.email && errors.email ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
+                    className={`w-full my-2 py-2 px-4 border-b-2 ${touched.email && errors.email ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
                     onChange={handleChange}
                     value={values.email}
                   />
@@ -154,7 +154,7 @@ const Page = () => {
                   <input
                     type="password"
                     name="Password"
-                    className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.Password && errors.Password ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
+                    className={`w-full my-2 py-2 px-4 border-b-2 ${touched.Password && errors.Password ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
                     onChange={handleChange}
                     value={values.Password}
                   />

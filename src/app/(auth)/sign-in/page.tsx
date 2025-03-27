@@ -42,16 +42,16 @@ const Page = () => {
         src="https://images.unsplash.com/photo-1683059624536-c21b82316aec?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       />
 
-      <div className=" my-8">
+      <div className=" my-8 px-6">
         <div className="my-8 text-center">
-          <h1 className=" text-6xl font-bold text-gray-50 font-[Playfair Display] tracking-wide">
+          <h1 className=" text-4xl md:text-6xl font-bold text-gray-50 font-[Playfair Display] tracking-wide">
             True Feedback
           </h1>
-          <h3 className="text-2xl text-gray-100 font-[Montserrat] my-4">
+          <h3 className=" text-lg md:text-2xl text-gray-100 font-[Montserrat] my-4">
             start your Anonymous Journey now...
           </h3>
         </div>
-        <div className="max-w-fit place-self-center p-6 rounded-lg shadow-md bg-slate-100 font-[Montserrat]">
+        <div className="min-w-full place-self-center p-6 rounded-lg shadow-md bg-slate-100 font-[Montserrat]">
           <h3 className="text-center text-xl font-semibold">SIGN IN</h3>
           <Formik
             initialValues={{
@@ -85,7 +85,7 @@ const Page = () => {
                     type="text"
                     name="identifier"
                     placeholder="Enter username or email"
-                    className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.identifier && errors.identifier ? "border-red-500" : "border-black focus:border-sky-600"} focus:outline-none`}
+                    className={`w-full my-2 py-2 px-4 border-b-2 ${touched.identifier && errors.identifier ? "border-red-500" : "border-black focus:border-sky-600"} focus:outline-none`}
                     onChange={handleChange}
                     value={values.identifier}
                   />
@@ -101,7 +101,7 @@ const Page = () => {
                   <input
                     type="password"
                     name="password"
-                    className={`min-w-96 my-2 py-2 px-4 border-b-2 ${touched.password && errors.password ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
+                    className={`w-full my-2 py-2 px-4 border-b-2 ${touched.password && errors.password ? "border-red-500" : "border-black focus:border-sky-600"}  focus:outline-none`}
                     onChange={handleChange}
                     value={values.password}
                   />

@@ -115,7 +115,7 @@ const Page = () => {
 
   return (
     <div className="font-[montserrat]">
-      <div className="container mt-16 mx-auto ">
+      <div className="container mt-16 mx-auto px-6">
         <div className="text-4xl font-bold text-center">
           Public Message Board
         </div>
@@ -123,7 +123,7 @@ const Page = () => {
         {isAcceptingMessages ? (
           <></>
         ) : (
-          <div className="flex place-self-center px-4 py-2 my-4 rounded bg-gray-200 text-semibold text-lg">
+          <div className="flex place-self-center text-center px-4 py-2 my-4 rounded bg-gray-200 text-semibold text-lg">
             This user is not accepting messages right now
           </div>
         )}
