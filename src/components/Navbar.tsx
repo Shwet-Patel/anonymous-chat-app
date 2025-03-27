@@ -53,7 +53,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 100 }}
-            className="fixed top-0 right-0 h-full w-2/3 bg-sky-950 text-white shadow-lg z-50 flex flex-col p-6"
+            className="fixed top-0 right-0 h-full w-2/3 text-sky-950 bg-white shadow-lg z-50 flex flex-col p-6"
           >
             {/* Close Button */}
             <button className="self-end mb-4" onClick={() => setIsOpen(false)}>
@@ -67,7 +67,7 @@ const Navbar = () => {
                   Hi, {data?.user.username}
                 </div>
                 <button
-                  className="bg-white px-4 py-2 rounded text-sky-950 hover:bg-gray-200 duration-200"
+                  className="text-white px-4 py-2 rounded bg-sky-950 hover:bg-gray-200 duration-200"
                   onClick={() => signOut()}
                 >
                   Logout
@@ -75,7 +75,7 @@ const Navbar = () => {
               </>
             ) : (
               <button
-                className="bg-white px-4 py-2 rounded text-sky-950"
+                className="text-white px-4 py-2 rounded bg-sky-950"
                 onClick={() => {
                   router.push("/sign-in");
                   setIsOpen(false);

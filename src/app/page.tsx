@@ -56,7 +56,9 @@ const Page = () => {
               alt="Anonymous"
             />
             <h3 className="font-semibold text-xl mt-4">100% Anonymous</h3>
-            <p className="text-gray-600">Your identity stays hidden—always.</p>
+            <p className="text-gray-600 text-center">
+              Your identity stays hidden—always.
+            </p>
           </div>
           <div className="flex flex-col items-center">
             <img
@@ -65,7 +67,7 @@ const Page = () => {
               alt="Easy to Share"
             />
             <h3 className="font-semibold text-xl mt-4">Easy to Share</h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-center">
               Just send a link and start collecting feedback.
             </p>
           </div>
