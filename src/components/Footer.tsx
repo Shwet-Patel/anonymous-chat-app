@@ -1,5 +1,6 @@
 import React from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 const Footer = () => {
   return (
     <footer className="mt-16 px-6 bg-gray-900 text-white py-6 text-center">

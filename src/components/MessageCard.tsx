@@ -19,7 +19,7 @@ const MessageCard = ({ message, onMessageDelete }: messageProps) => {
     handleDelete: (messageId: unknown) => void
   ) => {
     try {
-      const response = await axios.post("/api/delete-message", {
+      const response = await axios.post("/api/messaging/delete-message", {
         messageid: message._id,
       });
 

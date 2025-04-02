@@ -59,7 +59,7 @@ const Page = () => {
 
     try {
       const response = await axios.get<AsyncResponse>(
-        `/api/accept-messages?username=${user.username}`
+        `/api/messaging/accept-messages?username=${user.username}`
       );
 
       if (response.data.success === true) {
@@ -85,7 +85,7 @@ const Page = () => {
 
       try {
         const response = await axios.post<AsyncResponse>(
-          "/api/accept-messages",
+          "/api/messaging/accept-messages",
           {
             acceptingMessages: updatedval,
           }
@@ -116,7 +116,9 @@ const Page = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.get<AsyncResponse>("api/get-messages");
+        const response = await axios.get<AsyncResponse>(
+          "api/messaging/get-messages"
+        );
         if (response.data.success === true) {
           setMessages(response.data.messages || []);
 

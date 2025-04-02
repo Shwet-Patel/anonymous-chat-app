@@ -24,7 +24,7 @@ const Page = () => {
   const getAcceptingMessageStatus = useCallback(async () => {
     try {
       const response = await axios.get<AsyncResponse>(
-        `/api/accept-messages?username=${username}`
+        `/api/messaging/accept-messages?username=${username}`
       );
       console.log(response);
 
@@ -45,10 +45,13 @@ const Page = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post<AsyncResponse>("/api/send-messages", {
-        username: username,
-        content: message,
-      });
+      const response = await axios.post<AsyncResponse>(
+        "/api/messaging/send-messages",
+        {
+          username: username,
+          content: message,
+        }
+      );
 
       if (response.data.success) {
         toast.success(response.data.message);
@@ -70,7 +73,9 @@ const Page = () => {
     setIsGettingSuggestions(true);
 
     try {
-      const response = await axios.get<AsyncResponse>("/api/suggest-messages");
+      const response = await axios.get<AsyncResponse>(
+        "/api/messaging/suggest-messages"
+      );
 
       if (response.data.success === true) {
         const suggestions = response.data.messageSuggestions || "";
