@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import Footer from "@/components/Footer";
+import JoinUsSection from "@/components/JoinUsSection";
 
 const Page = () => {
   const username = useParams().username;
@@ -226,19 +227,11 @@ const Page = () => {
           </div>
         </div>
         <hr />
-        <div className="my-16">
-          <div className="text-4xl font-bold text-center">
-            get your own message board
-          </div>
-          <button
-            className="px-4 py-2 rounded text-white bg-sky-950 flex place-self-center mt-4"
-            onClick={() => {
-              router.push("/sign-up");
-            }}
-          >
-            Register Now
-          </button>
-        </div>
+
+        <JoinUsSection
+          callOutMessage="get your own message board"
+          buttonMessage="Register Now"
+        />
       </div>
 
       <Footer />

@@ -46,9 +46,9 @@ const PollSchema: Schema<poll> = new mongoose.Schema({
         required: [true, "options are required!!"],
 
     },
-    voterIDs: {
-        type: [String],
-        default: [],
+    voteCount: {
+        type: Number,
+        default: 0,
     },
     isResultPublic: {
         type: Boolean,

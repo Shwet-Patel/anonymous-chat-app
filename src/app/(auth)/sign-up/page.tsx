@@ -55,7 +55,7 @@ const Page = () => {
         toast.success(response.data.message);
         setTimeout(() => {
           router.replace(`/verify/${debouncedValue}`);
-        }, 1000);
+        }, 100);
         setIsSubmitting(false);
       } else {
         toast.error(response.data.message);

@@ -25,7 +25,7 @@ const Page = () => {
         toast.success("Email Verified successfully!");
         setTimeout(() => {
           router.replace(`/sign-in`);
-        }, 1000);
+        }, 100);
       } else {
         toast.error("Email Verification Failed!");
         setErrorMessage(response.data.message);

@@ -27,7 +27,7 @@ const Page = () => {
       toast.success("login successfull");
       setTimeout(() => {
         router.replace("/dashboard");
-      }, 1000);
+      }, 100);
     } else {
       toast.error(response?.error || "error occured while sign-in");
     }

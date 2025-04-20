@@ -1,5 +1,6 @@
 import FeedbackCarousel from "@/components/FeedbackCarousal";
 import Footer from "@/components/Footer";
+import JoinUsSection from "@/components/JoinUsSection";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
@@ -85,19 +86,11 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="text-center py-16 px-6">
-        <h2 className=" text-2xl md:text-4xl font-bold">
-          Ready to Get Honest Feedback?
-        </h2>
-        <div className="mt-8">
-          <Link
-            href="/sign-up"
-            className=" bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition"
-          >
-            Get started for Free
-          </Link>
-        </div>
-      </div>
+      <JoinUsSection
+        callOutMessage="Ready to Get Honest Feedback?"
+        buttonMessage="Get started for Free"
+      />
+
       <Footer />
     </div>
   );

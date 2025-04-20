@@ -47,6 +47,10 @@ const UserSchema: Schema<user> = new mongoose.Schema({
         required: [true,"verify code expiry is required!!"],
     },
     messages: [MessageSchema],
+    polls: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Poll" // Referencing the Poll model
+    }]
 }, { timestamps: true });
 
 

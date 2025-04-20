@@ -6,32 +6,25 @@ import MessageCard from "@/components/MessageCard";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
-import { useCopyToClipboard } from "usehooks-ts";
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 import { message } from "@/types/user.types";
 import { acceptMessageSchema } from "@/validationSchemas/acceptMessagesSchema";
+import Link from "next/link";
+import { pollSummary } from "@/types/poll.types";
+import PollCard from "@/components/PollCard";
+import UrlBox from "@/components/UrlBox";
 
 const Page = () => {
   const [url, setUrl] = useState("");
   const [messages, setMessages] = useState<message[]>([]);
+  const [polls, setPolls] = useState<pollSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPollLoading, setIsPollLoading] = useState(true);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
   const { data: session } = useSession();
   const user = session?.user as User;
-
-  //copy to clipboard
-  const [copiedText, copy] = useCopyToClipboard();
-  const CopyToClipboard = () => {
-    copy(url)
-      .then(() => {
-        toast.success("copied to clipboard");
-      })
-      .catch((error) => {
-        toast.error(`can't copy to clipboard, url: ` + `${copiedText}`, error);
-      });
-  };
 
   //acept-message status related
   const formik = useFormik({
@@ -141,9 +134,46 @@ const Page = () => {
     [setMessages, setIsLoading]
   );
 
+  //get Polls
+  const getPolls = useCallback(
+    async (refresh: boolean = false) => {
+      setIsPollLoading(true);
+
+      try {
+        const response = await axios.get<AsyncResponse>(
+          "api/poll/get-all-polls-summary"
+        );
+        if (response.data.success === true) {
+          setPolls(response.data.userPollSummary || []);
+          console.log(response.data.userPollSummary);
+
+          if (refresh) {
+            toast.success("polls refreshed successfully");
+          }
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        const axiosError = error as AxiosError<AsyncResponse>;
+        toast.error(
+          axiosError.response?.data.message || "error getting poll details"
+        );
+      } finally {
+        setIsPollLoading(false);
+      }
+    },
+    [setPolls, setIsPollLoading]
+  );
+
   //handle delete message for UI
   const handleMessageDelete = (messageId: unknown) => {
     setMessages(messages.filter((msg) => msg._id != messageId));
+  };
+
+  //handle delete poll for UI
+  const handlePollDelete = (pollId: unknown) => {
+    setPolls(polls.filter((poll) => poll._id != pollId));
   };
 
   useEffect(() => {
@@ -157,6 +187,9 @@ const Page = () => {
     //get messages
     getMessages();
 
+    //get polls
+    getPolls();
+
     //get initial status of accepting messages
     getIsAcceptingMessages();
 
@@ -167,22 +200,8 @@ const Page = () => {
     <>
       <div className=" container my-8 mx-auto px-6">
         <h1 className=" font-bold text-3xl">User Dashboard</h1>
-
         <div className="my-8">
-          <div className="font-semibold text-xl">Your Unique Link</div>
-          <div className="my-4 flex flex-col md:flex-row gap-6 justify-between bg-gray-50 text-xl">
-            <div
-              className={`mx-4 flex min-h-full items-center ${isLoading ? "animate-pulse" : ""}`}
-            >
-              {url}
-            </div>
-            <button
-              onClick={CopyToClipboard}
-              className="bg-sky-950 text-white px-4 py-2 rounded"
-            >
-              Copy
-            </button>
-          </div>
+          <UrlBox title="Your Message Board Link" url={url} />
         </div>
 
         <form className="" onSubmit={formik.handleSubmit}>
@@ -208,8 +227,62 @@ const Page = () => {
             </label>
           </div>
         </form>
-        <hr className="my-4 h-[2px] bg-black" />
 
+        <hr className="my-4 h-[2px] bg-black" />
+        <div>
+          <div className="flex justify-between items-center">
+            <div className=" font-semibold text-xl">Your Created Polls</div>
+            <div className="flex gap-x-4">
+              <Link
+                href={"/dashboard/create-poll"}
+                className="bg-sky-950 text-lg text-white px-4 py-2 rounded"
+              >
+                Create Poll
+              </Link>
+              <button
+                className="bg-sky-950 text-lg text-white px-4 py-2 rounded"
+                onClick={() => {
+                  getPolls(true);
+                }}
+              >
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          {isPollLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="p-4 shadow-md rounded-lg border bg-zinc-200 border-gray-200 w-full h-44 max-w-md animate-pulse"
+                ></div>
+              ))}
+            </div>
+          ) : polls.length > 0 ? (
+            // Show polls once loaded
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+              {polls.map((poll, index) => (
+                <PollCard
+                  key={index}
+                  poll={poll}
+                  onPollDelete={handlePollDelete}
+                />
+              ))}
+            </div>
+          ) : (
+            // No Poll but loading is done
+            <div className="flex flex-col items-center">
+              <img
+                className="w-full max-w-60 h-auto"
+                src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127829.jpg?t=st=1742878745~exp=1742882345~hmac=a6e7fed524a976102ea7b02db6b1c838b1d63bdc8519541da1ea7779986db5e3&w=900"
+              />
+              <p className="text-xl text-gray-500">No polls yet.</p>
+            </div>
+          )}
+        </div>
+
+        <hr className="my-4 h-[2px] bg-black" />
         <div>
           <div className="flex justify-between items-center">
             <div className=" font-semibold text-xl">Your Messages</div>

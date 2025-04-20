@@ -6,7 +6,7 @@ export async function GET() {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
-            systemInstruction: "Your job is to suggest questions for an anonymous social messaging platform like Qooh.me. Avoid personal or sensitive topics.Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment. return response in a single string where each response is separated by a ||. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?",
+            systemInstruction: "Your job is to suggest questions for an anonymous social messaging platform like Qooh.me. it is okay to cover personal or sensitive topics.Ensure the questions are spicy which makes user frustrate in a fun way. return response in a single string where each response is separated by a ||. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?",
         });
 
         const prompt = "Create a list of three open-ended and engaging questions formatted as a single string.";
