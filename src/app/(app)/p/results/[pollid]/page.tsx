@@ -5,9 +5,7 @@ import PieChartComponent from "@/components/PieChart";
 import axios, { AxiosError } from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import JoinUsSection from "@/components/JoinUsSection";
 import SendAnonymousMessageToPollCreator from "@/components/SendAnonymousMessageToPollCreator";
 import LoadingComponent from "@/components/LoadingComponent";
@@ -16,8 +14,6 @@ function Page() {
   const pollId = useParams().pollid;
   const [status, setStatus] = useState<string>("loading");
   const [poll, setPoll] = useState<responsePollDetails>();
-
-  const router = useRouter();
 
   //get Poll result details
   const getPollResultDetails = useCallback(

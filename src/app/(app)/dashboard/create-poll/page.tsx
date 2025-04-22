@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { AsyncResponse } from "@/types/AsyncResponse";
 import { createPollSchema } from "@/validationSchemas/createPollSchema";
 import axios, { AxiosError } from "axios";
-import { FieldArray, Formik, useFormik } from "formik";
+import { FieldArray, Formik } from "formik";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";

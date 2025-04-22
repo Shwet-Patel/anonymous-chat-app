@@ -1,11 +1,10 @@
 import { getServerSession } from "next-auth";
 import dbConnection from "@/utils/dbConnect";
 import { authOptions } from "../../auth/[...nextauth]/options";
-import { NextApiRequest } from "next";
 import PollModel from "@/models/Poll.model";
-import { poll } from "@/types/poll.types";
+import { candidate, poll } from "@/types/poll.types";
 
-export async function GET(request:NextApiRequest) {
+export async function GET(request: Request) {
     await dbConnection();
 
     const session = await getServerSession(authOptions);
@@ -34,11 +33,13 @@ export async function GET(request:NextApiRequest) {
         }
         else
         {
-            let filteredPollDetails = pollDetails.toObject();
-            const { voteCount , isResultPublic, ...publicDetails } = filteredPollDetails;
-           
+            const filteredPollDetails = pollDetails.toObject();
+            
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { voteCount, isResultPublic, ...publicDetails } = filteredPollDetails;           
+
             // remove vote counts from options
-            const sanitizedOptions = publicDetails.options.map((option: any) => ({
+            const sanitizedOptions = publicDetails.options.map((option: candidate) => ({
                 title: option.title,
                 // exclude 'votes'
             }));

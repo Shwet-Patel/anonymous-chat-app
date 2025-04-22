@@ -3,7 +3,6 @@ import { useParams } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import { AsyncResponse } from "@/types/AsyncResponse";
 import Footer from "@/components/Footer";
-import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
@@ -12,6 +11,8 @@ import { responsePollDetails } from "@/types/AsyncResponse";
 import UrlBox from "@/components/UrlBox";
 import PieChartComponent from "@/components/PieChart";
 import LoadingComponent from "@/components/LoadingComponent";
+import { useFormik } from "formik";
+import { isResultPublicSchema } from "@/validationSchemas/isResultPublicSchema";
 
 function Page() {
   const pollId = useParams().pollid;
@@ -20,8 +21,30 @@ function Page() {
   const [status, setStatus] = useState<string>("loading");
   const [poll, setPoll] = useState<responsePollDetails>();
   const [isPollLoading, setIsPollLoading] = useState(true);
+  const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
   const { data: session } = useSession();
+
+  //result-access status related
+  const formik = useFormik({
+    initialValues: {
+      isResultPublic: false,
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+    validateOnChange: true,
+    validate: (values) => {
+      const validationResult = isResultPublicSchema.safeParse(values);
+      if (!validationResult.success) {
+        const errors = validationResult.error.format() || [];
+        const isResultPublic = errors.isResultPublic?._errors.join(",");
+
+        return { isResultPublic };
+      }
+      return {};
+    },
+  });
 
   //get Poll details
   const getPollDetails = useCallback(
@@ -48,6 +71,10 @@ function Page() {
             setStatus("active");
           }
 
+          formik.setValues({
+            isResultPublic: response.data.pollDetails?.isResultPublic || false,
+          });
+
           if (refresh) {
             toast.success("poll details refreshed successfully");
           }
@@ -65,6 +92,39 @@ function Page() {
       }
     },
     [pollId, setPoll, setIsPollLoading]
+  );
+
+  // update result access status
+  const handleResultAccessChange = useCallback(
+    async (updatedval: boolean) => {
+      setIsSwitchLoading(true);
+
+      try {
+        const response = await axios.post<AsyncResponse>(
+          "/api/poll/update-result-access",
+          {
+            pollID: pollId,
+            resultStatus: updatedval,
+          }
+        );
+
+        if (response.data.success === true) {
+          toast.success("poll results access status updated successfully");
+        } else {
+          toast.error("error updating poll results access status");
+        }
+      } catch (error) {
+        console.log(error);
+        const axiosError = error as AxiosError<AsyncResponse>;
+        toast.error(
+          axiosError.response?.data.message ||
+            "error updating poll results access status"
+        );
+      } finally {
+        setIsSwitchLoading(false);
+      }
+    },
+    [pollId, setIsSwitchLoading]
   );
 
   useEffect(() => {
@@ -178,8 +238,36 @@ function Page() {
           </div>
           <div className="flex gap-4 items-center">
             <p className="text-gray-700 font-medium">Result Visibility:</p>
-            <p>{poll?.isResultPublic ? "Public" : "Private"}</p>
+            <p>{formik.values.isResultPublic ? "Public" : "Private"}</p>
           </div>
+
+          <form className="" onSubmit={formik.handleSubmit}>
+            <div className="my-2 ">
+              <label className="text-lg font-medium">
+                Wanna Change the Result Visibility?
+              </label>
+              <div className="flex my-2">
+                <label className="relative inline-block w-11 h-6 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="isResultPublic"
+                    className="peer sr-only"
+                    onChange={(e) => {
+                      formik.handleChange(e);
+                      handleResultAccessChange(e.target.checked);
+                    }}
+                    checked={formik.values.isResultPublic}
+                    disabled={isSwitchLoading}
+                  />
+                  <span className="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-sky-950  peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                  <span className="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full "></span>
+                </label>
+                <label className="ml-2 font-semibold">
+                  {formik.values.isResultPublic ? "Public" : "Private"}
+                </label>
+              </div>
+            </div>
+          </form>
         </div>
 
         {/* Live Results */}

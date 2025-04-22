@@ -1,12 +1,10 @@
 import { getServerSession } from "next-auth";
 import dbConnection from "@/utils/dbConnect";
 import { authOptions } from "../../auth/[...nextauth]/options";
-import { NextApiRequest } from "next";
 import PollModel from "@/models/Poll.model";
-import { poll } from "@/types/poll.types";
 import UserModel from "@/models/User.model";
 
-export async function GET(request:NextApiRequest) {
+export async function GET() {
     await dbConnection();
 
     const session = await getServerSession(authOptions);

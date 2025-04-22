@@ -6,9 +6,6 @@ import { useFormik } from "formik";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
-
-import { useRouter } from "next/navigation";
-
 import { z } from "zod";
 import Footer from "@/components/Footer";
 import JoinUsSection from "@/components/JoinUsSection";
@@ -19,8 +16,6 @@ const Page = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGettingSuggestions, setIsGettingSuggestions] = useState(false);
   const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
-
-  const router = useRouter();
 
   const getAcceptingMessageStatus = useCallback(async () => {
     try {

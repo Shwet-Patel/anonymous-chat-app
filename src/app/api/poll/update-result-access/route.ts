@@ -3,7 +3,6 @@ import dbConnection from "@/utils/dbConnect";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextRequest } from "next/server";
 import PollModel from "@/models/Poll.model";
-import UserModel from "@/models/User.model";
 
 export async function POST(request:NextRequest) {
     await dbConnection();
@@ -20,37 +19,34 @@ export async function POST(request:NextRequest) {
         },{status:401});
     }
 
-    const { pollID } = await request.json();
-
+    const { pollID, resultStatus } = await request.json();
 
     try {
 
-        // Delete poll only if the logged-in user is the creator
-        const deleteResult = await PollModel.deleteOne({
-            _id: pollID,
-            createdBy: user.username // Ensure only the creator can delete
-        });
+        // update only if the logged-in user is the creator
+        const updateResult = await PollModel.updateOne(
+            { _id: pollID, createdBy: user.username },
+            {isResultPublic: resultStatus} // update the isResultPublic field
+        ); 
         
-        if (deleteResult.deletedCount === 0) {
+        if (updateResult.modifiedCount === 0) {
             return Response.json({
                 success: false,
-                message: "Poll not found or you don't have permission to delete it."
+                message: "Poll not found or you don't have permission to update it."
             }, { status: 403 });
         }
         
-        //update the user's document
-        await UserModel.updateOne({ _id: user._id }, { $pull: { polls: pollID } });
         
         return Response.json({
             success: true,
-            message: 'poll deleted succesfully.',
+            message: 'poll results access status updated succesfully.',
         }, { status: 200 });
         
     } catch (error) {
-        console.log('error in deleting poll',error)
+        console.log('error in changing poll results acess status',error)
         return Response.json({
             success: false,
-            message: 'error in deleting poll',
+            message: 'error in changing poll results acess status',
         },{status:500});
     }
 

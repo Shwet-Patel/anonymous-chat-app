@@ -4,8 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useFormik } from "formik";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
-import toast, { LoaderIcon } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { z } from "zod";
 import Footer from "@/components/Footer";
 import { addVoteSchema } from "@/validationSchemas/addVoteSchema";
@@ -19,8 +18,6 @@ function Page() {
   const [poll, setPoll] = useState<responsePollDetails>();
   const [hasVoted, setHasVoted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const router = useRouter();
 
   //get Poll details
   const getPollDetails = useCallback(

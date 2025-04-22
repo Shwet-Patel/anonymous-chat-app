@@ -61,7 +61,7 @@ export async function POST(request:NextRequest) {
         //console.log("this is poll.......",savedPoll);
 
         user.polls.push(savedPoll._id);
-        const newUser = await user.save();
+        await user.save();
 
         //console.log("this is user.........",newUser);
 
